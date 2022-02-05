@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id "com.bmuschko.tomcat" version "2.7.0"
+
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    gradlePluginPortal ()
+    mavenCentral ()
+}
+dependencies {
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+    implementation 'mysql:mysql-connector-java:8.0.11'
+}
+dependencies {
+    def tomcatVersion = '7.0.76'
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
+
+}
+
+tomcat {
+    httpPort = 8090
+    httpsPort = 8091
+    enableSSL = false
+    contextPath = ''
+
+    users {
+        user {
+            username = 'user1'
+            password = '123456'
+            roles = ['developers', 'admin']
+        }
+
+        user {
+            username = 'user2'
+            password = 'abcdef'
+            roles = ['manager']
+        }
+    }
+}
